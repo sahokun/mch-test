@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "Vue.volar",
+    "vue.vscode-typescript-vue-plugin",
+    "davidanson.vscode-markdownlint",
+    "esbenp.prettier-vscode",
+    "gruntfuggly.todo-tree",
+    "visualstudioexptteam.vscodeintellicode"
+  ]
+}
