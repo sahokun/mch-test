@@ -7,6 +7,9 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 // https://vitejs.dev/config/
 export default defineConfig({
   root: "src",
+  base: process.env.GITHUB_PAGES
+    ? "mch-test" // レポジトリ名を設定
+    : "./",
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {
