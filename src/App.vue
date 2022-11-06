@@ -5,38 +5,20 @@ import { RouterLink, RouterView } from "vue-router";
 <template>
   <header>
     <div>
-      <nav class="crumbs">
-        <ol>
-          <li class="crumb"><RouterLink to="/">Home</RouterLink></li>
-          <li class="crumb"><RouterLink to="/lpvp">LPVP</RouterLink></li>
-        </ol>
+      <nav class="">
+        <button class=""><RouterLink to="/">Home</RouterLink></button>
+        <button class=""><RouterLink to="/lpvp">LPVP</RouterLink></button>
+        <button class="">
+          <RouterLink to="/balance-checker">BalanceChecker</RouterLink>
+        </button>
       </nav>
     </div>
   </header>
-
   <RouterView />
 </template>
 
 <style scoped>
 nav {
   border-bottom: 1px solid black;
-}
-
-.crumbs ol {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.crumb {
-  display: inline-block;
-}
-
-.crumb a::after {
-  display: inline-block;
-  color: #fff;
-  content: ">";
-  font-size: 80%;
-  font-weight: bold;
-  padding: 0 3px;
 }
 </style>
