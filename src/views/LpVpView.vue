@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div>10 * 110.5 * √(MCHC/ETH)</div>
+    <h1>10 * 110.5 * √(MCHC/ETH)</h1>
+    <hr />
     <div>
       <p>{{ text1 }}</p>
       <p>{{ text2 }}</p>
@@ -15,7 +16,7 @@ import * as ContractWeth from "../utils/contracts/weth";
 import * as ContractMchc from "../utils/contracts/mchc";
 import * as ContractQuickswapWethMchc from "../utils/contracts/quickswap-weth-mchc";
 import { ContractErc20Wrapper } from "../utils";
-
+// import { date } from "date-fns";
 const text1 = ref<string>("");
 const text2 = ref<string>("");
 const text3 = ref<string>("");

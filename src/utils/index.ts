@@ -92,6 +92,11 @@ export class ContractErc20Wrapper {
   constructor(contract: Erc20) {
     this.contract = contract;
   }
+  async symbol() {
+    const symbol = await this.contract.methods.symbol().call();
+    console.log(`symbol: ${symbol}`);
+    return symbol;
+  }
   async balanceOf(address: string) {
     const balanceWei = await this.contract.methods.balanceOf(address).call();
     console.log(`balanceWei: ${balanceWei}`);
