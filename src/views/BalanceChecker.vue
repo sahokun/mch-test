@@ -82,7 +82,7 @@ const targetTokenAddress = ref<string>(
 const output = ref<string[]>([]);
 
 const clearOutput = () => {
-  output.value = [import.meta.env.BASE_URL];
+  output.value = [];
 };
 
 const appendOutput = (text: string) => {

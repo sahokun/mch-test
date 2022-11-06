@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 
-console.log(`import.meta.env.BASE_URL: ${import.meta.env.BASE_URL}`);
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
