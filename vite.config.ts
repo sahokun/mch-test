@@ -6,7 +6,7 @@ import pluginRewriteAll from "vite-plugin-rewrite-all";
 // https://vitejs.dev/config/
 
 const config = {
-  root: "src",
+  // root: "src",
   base: process.env.GITHUB_PAGES ? "/mch-test/" : "/",
   plugins: [pluginRewriteAll(), vue(), vueJsx()],
   resolve: {
@@ -15,7 +15,7 @@ const config = {
     },
   },
   build: {
-    outDir: "../dist",
+    // outDir: "../dist",
   },
 };
 
