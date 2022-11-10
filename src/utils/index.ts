@@ -97,6 +97,11 @@ export class ContractErc20Wrapper {
     console.log(`symbol: ${symbol}`);
     return symbol;
   }
+  async decimals() {
+    const decimals = await this.contract.methods.decimals().call();
+    console.log(`decimals: ${decimals}`);
+    return decimals;
+  }
   async balanceOf(address: string) {
     const balanceWei = await this.contract.methods.balanceOf(address).call();
     console.log(`balanceWei: ${balanceWei}`);
