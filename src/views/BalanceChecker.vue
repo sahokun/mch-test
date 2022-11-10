@@ -70,6 +70,7 @@ import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import axios from "axios";
 import type { AbiItem } from "web3-utils";
+import { Decimal } from "decimal.js";
 const isActivePolygon = ref<boolean>(false);
 const apiKey = ref<string>("");
 const sourceRpc = ref<string>("https://polygon-rpc.com");
@@ -122,9 +123,14 @@ const getBalance = async () => {
   const balanceNative = web3.utils.fromWei(balanceNativeWei, "ether");
   appendOutput(`Balance Native:\t${String(balanceNative)}`);
   const symbolErc20 = await contractErc20.symbol();
-  const balanceErc20Wei = await contractErc20.balanceOf(targetAddress.value);
-  const balanceErc20 = web3.utils.fromWei(balanceErc20Wei, "ether");
-  appendOutput(`Balance ${symbolErc20}:\t${String(balanceErc20)}`);
+  const decimalsErc20 = await contractErc20.decimals();
+  const decimalsErc20PowNumber = 10 ** Number(decimalsErc20);
+  const balanceErc20Digits = await contractErc20.balanceOf(targetAddress.value);
+  const balanceErc20DigitsDecimal = new Decimal(balanceErc20Digits);
+  const balanceErc20Decimal = balanceErc20DigitsDecimal.div(
+    new Decimal(decimalsErc20PowNumber)
+  );
+  appendOutput(`Balance ${symbolErc20}:\t${String(balanceErc20Decimal)}`);
 };
 </script>
 <style></style>
