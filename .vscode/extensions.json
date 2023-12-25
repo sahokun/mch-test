@@ -5,6 +5,9 @@
     "davidanson.vscode-markdownlint",
     "esbenp.prettier-vscode",
     "gruntfuggly.todo-tree",
-    "visualstudioexptteam.vscodeintellicode"
+    "visualstudioexptteam.vscodeintellicode",
+    "github.vscode-github-actions",
+    "github.copilot",
+    "dbaeumer.vscode-eslint"
   ]
 }

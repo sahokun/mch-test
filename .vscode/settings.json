@@ -18,7 +18,7 @@
   },
   "[shellscript]": {
     "editor.codeActionsOnSave": {
-      "source.fixAll.shellcheck": true
+      "source.fixAll.shellcheck": "explicit"
     }
   }
 }
