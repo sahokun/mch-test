@@ -1,6 +1,6 @@
 {
-  "name": "vue-project",
-  "version": "0.0.0",
+  "name": "nupper-kun-web",
+  "version": "0.0.2",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
