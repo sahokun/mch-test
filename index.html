@@ -18,20 +18,19 @@
             .split("&")
             .forEach(function (v) {
               // ?p=/fooの分解
-              var a = v.split("="); // 'p=/foo' となっているはずなので=で分割
-              q[a[0]] = a[1]; // {p: '/foo'} 形式に修正
+              var a = v.split("=");
+              q[a[0]] = a[1];
             });
           if (q.p !== undefined) {
             window.history.replaceState(
               null,
               null,
               l.pathname.slice(0, -1) + (q.p || "")
-            ); // https://hoge.com/fooへ遷移
+            );
           }
         }
       })(window.location);
     </script>
-    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
   </head>
   <body>
     <div id="app"></div>
