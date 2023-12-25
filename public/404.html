@@ -4,15 +4,12 @@
     <meta charset="utf-8" />
     <title>Single Page Apps for GitHub Pages</title>
     <script type="text/javascript">
-      let segmentCount = 1;
+      let segmentCount = 2;
       let l = window.location;
       let port = l.port ? ":" + l.port : "";
-      l.replace(
-        `${l.protocol}//${l.hostname}${port}/?p=${l.pathname
-          .split("/")
-          .slice(0, 1 + segmentCount)
-          .join("/")}`
-      );
+      const root = l.pathname.split("/").slice(1, 2).join("");
+      const sub = l.pathname.split("/").slice(2).join("/");
+      l.replace(`${l.protocol}//${l.hostname}${port}/${root}/?p=${sub}`);
     </script>
   </head>
   <body></body>
