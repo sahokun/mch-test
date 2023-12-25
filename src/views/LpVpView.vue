@@ -5,6 +5,7 @@
     <div>
       <p>{{ text1 }}</p>
       <p>{{ text2 }}</p>
+      <p>{{ text3 }}</p>
     </div>
   </div>
 </template>
@@ -56,15 +57,14 @@ const getBalance = async () => {
   console.log(totalSupplyWethMchc);
 
   const totalSupplyWethMchcWeiDecimal = new Decimal(totalSupplyWethMchcWei);
+
   const balanceWethWeiDecimal = new Decimal(balanceWethWei);
-  const wethPerLpWei = balanceWethWeiDecimal
-    .div(totalSupplyWethMchcWeiDecimal)
-    .toFixed(3);
+  const weth1lp = balanceWethWeiDecimal.div(totalSupplyWethMchcWeiDecimal);
+  const weth100lp = weth1lp.mul(100);
 
   const balanceMchcWeiDecimal = new Decimal(balanceMchcWei);
-  const mchcPerLpWei = balanceMchcWeiDecimal
-    .div(totalSupplyWethMchcWeiDecimal)
-    .toFixed(3);
+  const mchc1lp = balanceMchcWeiDecimal.div(totalSupplyWethMchcWeiDecimal);
+  const mchc100lp = mchc1lp.mul(100);
 
   const vpOf100lp = balanceMchcWeiDecimal
     .div(totalSupplyWethMchcWeiDecimal)
@@ -72,8 +72,11 @@ const getBalance = async () => {
     .mul(10)
     .toFixed(0);
 
-  text1.value = `1LP = ${wethPerLpWei}ETH+${mchcPerLpWei}MCHC`;
-  text2.value = `100LP Value = ${vpOf100lp}`;
+  text1.value = `1LP = ${weth1lp.toFixed(6)}ETH+${mchc1lp.toFixed(4)}MCHC`;
+  text2.value = `100LP = ${weth100lp.toFixed(4)}ETH+${mchc100lp.toFixed(
+    2
+  )}MCHC`;
+  text3.value = `100LP VP = ${vpOf100lp}`;
   // text3.value = `100LPVP(MAX) = ${vpOf100lp}`;
 };
 
