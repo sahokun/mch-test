@@ -36,7 +36,7 @@ export default function BalanceChecker() {
   const handleSetBlockNumber = async () => {
     const unixtime = sourceDatetime.getTime() / 1000;
     console.log(unixtime);
-    const url = `https://api.polygonscan.com/api?module=block&action=getblocknobytime&timestamp=${unixtime}&closest=before&apikey=${apiKey}`;
+    const url = `https://api.etherscan.io/v2/api?chainid=137&module=block&action=getblocknobytime&timestamp=${unixtime}&closest=before&apikey=${apiKey}`;
 
     const aaa = await axios.get(url);
     console.log(aaa.data.result);
