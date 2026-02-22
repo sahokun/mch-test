@@ -1,8 +1,14 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.node.json",
-  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*", "playwright.config.*"],
   "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "strict": true,
+    "noEmit": true,
     "composite": true,
     "types": ["node"]
-  }
+  },
+  "include": ["vite.config.*", "vite.config.mts", "vitest.config.*", "cypress.config.*", "playwright.config.*"]
 }
