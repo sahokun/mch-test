@@ -16,7 +16,7 @@ export default function LpVpView() {
   useEffect(() => {
     const fetchBalance = async () => {
       const web3 = new Web3(
-        new Web3.providers.HttpProvider(`https://polygon-rpc.com`)
+        new Web3.providers.HttpProvider(`https://polygon.drpc.org`)
       );
 
       const contractWeth = new ContractErc20Wrapper(
