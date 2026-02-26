@@ -89,15 +89,6 @@ export default function BalanceChecker() {
       </div>
       {isActivePolygon && (
         <div>
-          <div>
-            APIKEY
-            <input
-              className="form-control input-block"
-              type="text"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-            />
-          </div>
           Datetime
           <DatePicker
             selected={sourceDatetime}
@@ -119,6 +110,15 @@ export default function BalanceChecker() {
           type="text"
           value={sourceRpc}
           onChange={(e) => setSourceRpc(e.target.value)}
+        />
+      </div>
+      <div>
+        API Key
+        <input
+          className="form-control input-block"
+          type="text"
+          value={apiKey}
+          onChange={(e) => setApiKey(e.target.value)}
         />
       </div>
       <div>
