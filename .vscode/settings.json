@@ -20,5 +20,9 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.shellcheck": "explicit"
     }
+  },
+  "chat.tools.terminal.autoApprove": {
+    "git checkout": true,
+    "git add": true
   }
 }
