@@ -20,6 +20,7 @@ export default function BalanceChecker() {
   const [targetTokenAddress, setTargetTokenAddress] = useState<string>(
     "0xee7666aACAEFaa6efeeF62ea40176d3eB21953B9"
   );
+  const [isMultiTokenMode, setIsMultiTokenMode] = useState<boolean>(false);
   const [output, setOutput] = useState<string[]>([]);
 
   const selectedChain =
@@ -51,6 +52,13 @@ export default function BalanceChecker() {
     String(sourceDatetime.getMinutes()).padStart(2, "0"),
     String(sourceDatetime.getSeconds()).padStart(2, "0"),
   ].join(":");
+
+  const getTokenAddresses = (): string[] => {
+    return targetTokenAddress
+      .split('\n')
+      .map(addr => addr.trim())
+      .filter(addr => addr.length > 0);
+  };
 
   const clearOutput = () => {
     setOutput([]);
@@ -84,11 +92,6 @@ export default function BalanceChecker() {
     web3.eth.defaultBlock = blockNumber;
 
     const abi = Erc20Json.abi as any as AbiItem;
-    const contractErc20Raw = new web3.eth.Contract(
-      abi,
-      targetTokenAddress
-    ) as unknown as Erc20;
-    const contractErc20 = new ContractErc20Wrapper(contractErc20Raw);
 
     const defaultBlock = web3.eth.defaultBlock;
     appendOutput(`BlockNumber:\t${String(defaultBlock)}`);
@@ -99,18 +102,24 @@ export default function BalanceChecker() {
     const balanceNative = web3.utils.fromWei(balanceNativeWei, "ether");
     const nativeSymbol = CHAINS_MAP[String(chainId)]?.nativeSymbol ?? "Native";
     appendOutput(`Balance ${nativeSymbol}:\t${String(balanceNative)}`);
-    try {
-      const symbolErc20 = await contractErc20.symbol();
-      const decimalsErc20 = await contractErc20.decimals();
-      const decimalsErc20PowNumber = 10 ** Number(decimalsErc20);
-      const balanceErc20Digits = await contractErc20.balanceOf(targetAddress);
-      const balanceErc20DigitsDecimal = new Decimal(balanceErc20Digits);
-      const balanceErc20Decimal = balanceErc20DigitsDecimal.div(
-        new Decimal(decimalsErc20PowNumber)
-      );
-      appendOutput(`Balance ${symbolErc20}:\t${String(balanceErc20Decimal)}`);
-    } catch {
-      appendOutput(`Balance ERC20:\tエラー（${targetTokenAddress} はERC20コントラクトではないか存在しません）`);
+
+    const tokenAddresses = getTokenAddresses();
+    for (const tokenAddr of tokenAddresses) {
+      try {
+        const contractErc20Raw = new web3.eth.Contract(abi, tokenAddr) as unknown as Erc20;
+        const contractErc20 = new ContractErc20Wrapper(contractErc20Raw);
+        const symbolErc20 = await contractErc20.symbol();
+        const decimalsErc20 = await contractErc20.decimals();
+        const decimalsErc20PowNumber = 10 ** Number(decimalsErc20);
+        const balanceErc20Digits = await contractErc20.balanceOf(targetAddress);
+        const balanceErc20DigitsDecimal = new Decimal(balanceErc20Digits);
+        const balanceErc20Decimal = balanceErc20DigitsDecimal.div(
+          new Decimal(decimalsErc20PowNumber)
+        );
+        appendOutput(`Balance ${symbolErc20}:\t${String(balanceErc20Decimal)}`);
+      } catch {
+        appendOutput(`Balance ERC20:\tエラー（${tokenAddr} はERC20コントラクトではないか存在しません）`);
+      }
     }
   };
 
@@ -203,13 +212,32 @@ export default function BalanceChecker() {
         />
       </div>
       <div>
-        <label>ERC20 Token Address</label>
-        <input
-          className="form-control input-block"
-          type="text"
-          value={targetTokenAddress}
-          onChange={(e) => setTargetTokenAddress(e.target.value)}
-        />
+        <label>
+          ERC20 Token Address
+          <button
+            type="button"
+            className="btn btn-sm ml-2"
+            onClick={() => setIsMultiTokenMode((prev) => !prev)}
+          >
+            {isMultiTokenMode ? "シングル" : "マルチ"}
+          </button>
+        </label>
+        {isMultiTokenMode ? (
+          <textarea
+            className="form-control input-block"
+            rows={4}
+            placeholder={"0xABCD...\n0x1234..."}
+            value={targetTokenAddress}
+            onChange={(e) => setTargetTokenAddress(e.target.value)}
+          />
+        ) : (
+          <input
+            className="form-control input-block"
+            type="text"
+            value={targetTokenAddress}
+            onChange={(e) => setTargetTokenAddress(e.target.value)}
+          />
+        )}
       </div>
 
       <hr />
