@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Web3 from "web3";
-import { ContractErc20Wrapper } from "../utils";
+import { FMT_NUMBER, FMT_BYTES, type ContractAbi } from "web3";
+import { ContractErc20Wrapper, type Erc20 } from "../utils";
 import Erc20Json from "../types/json/erc20.json";
-import type { Erc20 } from "../types/abi/Erc20";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-import type { AbiItem } from "web3-utils";
 import { Decimal } from "decimal.js";
 import { CHAINS, CHAINS_MAP, CUSTOM_CHAIN_VALUE } from "../config/chains";
 
@@ -91,7 +90,7 @@ export default function BalanceChecker() {
     const web3 = new Web3(new Web3.providers.HttpProvider(sourceRpc));
     web3.eth.defaultBlock = blockNumber;
 
-    const abi = Erc20Json.abi as any as AbiItem;
+    const abi = Erc20Json.abi as unknown as ContractAbi;
 
     const defaultBlock = web3.eth.defaultBlock;
     appendOutput(`BlockNumber:\t${String(defaultBlock)}`);
@@ -106,7 +105,10 @@ export default function BalanceChecker() {
     const tokenAddresses = getTokenAddresses();
     for (const tokenAddr of tokenAddresses) {
       try {
-        const contractErc20Raw = new web3.eth.Contract(abi, tokenAddr) as unknown as Erc20;
+        const contractErc20Raw = new web3.eth.Contract(abi, tokenAddr, {
+          number: FMT_NUMBER.STR,
+          bytes: FMT_BYTES.HEX,
+        }) as unknown as Erc20;
         const contractErc20 = new ContractErc20Wrapper(contractErc20Raw);
         const symbolErc20 = await contractErc20.symbol();
         const decimalsErc20 = await contractErc20.decimals();
