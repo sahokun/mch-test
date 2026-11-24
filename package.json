@@ -54,6 +54,6 @@
     "typechain": "^8.1.1",
     "typescript": "^5",
     "vite": "^6",
-    "vitest": "^0.24.3"
+    "vitest": "^4.1.11"
   }
 }
